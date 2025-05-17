@@ -1,6 +1,13 @@
-import express from 'express';         // Node 22는 ES 모듈 기본 지원
-const app = express();
-const PORT = process.env.PORT || 3000;
+import express from 'express';
+import statRouter from './routes/stat.js';
 
-app.get('/', (req, res) => res.send('Hello, Node.js!'));
+const app = express();
+const PORT = process.env.PORT || 8080;
+
+// Middleware
+app.use(express.json());
+
+// Router
+app.use('/', statRouter);
+
 app.listen(PORT, () => console.log(`🚀 Server on http://localhost:${PORT}`));
