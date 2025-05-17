@@ -1,11 +1,11 @@
 import express from 'express';
-import pool from '../config/database.js';
+import dbconn from '../config/database.js';
 
 const router = express.Router();
 
 router.get('/user', async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT userCount FROM stat LIMIT 1');
+    const [rows] = await dbconn.query('SELECT userCount FROM stat LIMIT 1');
     if (rows.length > 0) {
       res.json({ userCount: rows[0].userCount });
     } else {
@@ -19,8 +19,8 @@ router.get('/user', async (req, res) => {
 
 router.post('/user', async (req, res) => {
   try {
-    await pool.query('UPDATE stat SET userCount = userCount + 1');
-    const [rows] = await pool.query('SELECT userCount FROM stat LIMIT 1');
+    await dbconn.query('UPDATE stat SET userCount = userCount + 1');
+    const [rows] = await dbconn.query('SELECT userCount FROM stat LIMIT 1');
     res.json({ userCount: rows[0].userCount });
   } catch (error) {
     console.error('Error incrementing user count:', error);

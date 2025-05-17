@@ -8,6 +8,6 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 
 // Router
-app.use('/', statRouter);
+app.use('/stat', statRouter);
 
 app.listen(PORT, () => console.log(`🚀 Server on http://localhost:${PORT}`));
